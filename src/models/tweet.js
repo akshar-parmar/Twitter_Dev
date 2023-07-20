@@ -1,35 +1,29 @@
 const mongoose = require('mongoose');
 const Comment = require('./comment');
+const Hashtag = require('./hashtags')
 //lets define schema 
 //SCHEMA means structured of document inside mongo db collection
 const tweetSchema = new mongoose.Schema({
-    userContent : {
+    content : {
         type : String,
-        required : true
+        required : true,
+        maxLength : [250,'Tweet cannot be more than 250 characters']
     },
-    userEmail : {
-        type : String
-    },
-    comments : [
+
+    hashtags : [
         {
             type : mongoose.Schema.Types.ObjectId,
-            ref : 'Comment'
+            ref : 'Hashtag'
         }
-    ] 
-}, {
+        //like tweet ->[hashtagId1,hashtagId2,hashtagId3 .....]
+    ]
+
+}, { 
     timestamps:true
 });
-tweetSchema.virtual('commentWithMail').get(function(){
-    return `${this.userContent} created by ${this.userEmail}`;
-});
 
-//hooks
-tweetSchema.pre('save',function(next){
-    this.userContent = this.userContent + '....';
-    next();
-});
 
-const tweet = mongoose.model('tweet',tweetSchema);
-module.exports = tweet;
+const Tweet = mongoose.model('Tweet',tweetSchema);
+module.exports = Tweet;
 
 
