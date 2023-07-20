@@ -25,7 +25,8 @@ class TweetRepository {
 
    async getTweetWithComments(tweetId){
     try {
-        const tweetSample = await tweet.findById(tweetId).populate('comments');
+        //using lean() the query return us a plain javascript object instead of mongoose object.
+        const tweetSample = await tweet.findById(tweetId).populate('comments').lean();
         return tweetSample;
     } catch (error) {
         console.log("Something went wrong in tweetRepository");
@@ -49,7 +50,24 @@ class TweetRepository {
             console.log("Something went wrong in tweetRepository");
         }
 
-
     };
+
+    async getAll(offset,limit){
+        try {
+            const tweetSample = await tweet.find().skip(offset).limit(limit);
+            return tweetSample;
+        } catch (error) {
+            console.log("Something went wrong in tweetRepository");
+        }
+    }
+
+    async getCommentWithUserEmail(){
+        try {
+            
+        } catch (error) {
+            
+        }
+    }
+
 }
 module.exports = TweetRepository;

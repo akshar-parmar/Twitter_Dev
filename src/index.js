@@ -66,13 +66,16 @@ app.listen(PORT,async()=>{
     // await tweetSample.save();
     // console.log("after adding comments :",tweetSample);
 
-    const tweetSample = await tweetRepo.getTweetWithComments('64b677cc2c0dca180af71d30');
-    console.log(tweetSample);
+    // const tweetSample = await tweetRepo.getAll(0,5);
+    // console.log(tweetSample[0].commentWithMail);
 
     // const commentSample = await Comment.findById('64b677cc2c0dca180af71d32');
     // //console.log(commentSample);
     // tweetSample.comments.push(commentSample);
     // await tweetSample.save();
+    const tweetSample = await tweetRepo.create({userContent : 'with hooks'});
+    await tweetSample.save();
+    console.log(tweetSample);
 
 
     console.log("MongoDB connected");
