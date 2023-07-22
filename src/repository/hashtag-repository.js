@@ -49,7 +49,7 @@ class HashtagRepository {
 
     async bulkcreate(tags){
         try {
-            console.log("inserting hashtags which are not present");
+            //console.log("inserting hashtags which are not present");
             const response = await Hashtag.insertMany(tags);
             return response;
         } catch (error) {
@@ -60,7 +60,7 @@ class HashtagRepository {
 
     async AddTweetIdToAllHashtags(hashtagTitleArray,tweetId){
         try {
-            console.log("Adding tweetId to all the hashtags");
+            //console.log("Adding tweetId to all the hashtags");
             const response = await Hashtag.updateMany(
             { title: { $in: hashtagTitleArray } },
             { $push: { tweets: tweetId } }

@@ -50,7 +50,7 @@ class TweetRepository {
 
     async addHashtagIds(tweetId,allHashtagIds){
         try {
-            console.log("Adding hastagIds to tweet");
+            //console.log("Adding hastagIds to tweet");
             const response = await Tweet.findByIdAndUpdate(
                 tweetId,
                 { $addToSet: { hashtags: { $each: allHashtagIds } } },

@@ -17,16 +17,16 @@ class TweetService{
             .map((tags)=> tags.substring(1).toLowerCase());
 
         const hashtagTitleArray = [...new Set(fetchedHashtag)];  //to avoid duplicate #hashtag if present
-        console.log(hashtagTitleArray);
+        //console.log(hashtagTitleArray);
         //let's create the tweet 
         const tweet = await this.tweetrepository.create(data);
-        console.log("tweet created in collection Tweet",tweet);
+        //console.log("tweet created in collection Tweet",tweet);
         const tweetId = tweet.id;
 
 
         //filter title of hashtags based on multiple tags
         const hashtagPresentInDBObject = await this.hashtagrepository.getAllByName(hashtagTitleArray);
-        console.log("already present title are ",hashtagPresentInDBObject);
+        //console.log("already present title are ",hashtagPresentInDBObject);
 
         let titlePresentInDb = [];
 
@@ -36,16 +36,18 @@ class TweetService{
 
         //bulkInsert of title which are not present
        const response = await this.bulkInsertHashtags(titlePresentInDb,hashtagTitleArray);
-       console.log(response);
+       //console.log(response);
 
 
         //how to add tweetID inside all hashtags
        const addedId =   await this.hashtagrepository.AddTweetIdToAllHashtags(hashtagTitleArray,tweetId);
-       console.log(addedId);
+       //console.log(addedId);
 
        //now we need to add all the hashtagid in that tweet as well
        const AddedHashtagId = await this.addAllHashtagIdToTweet(tweetId,hashtagTitleArray);
-       console.log(AddedHashtagId);
+       return AddedHashtagId;
+       
+
     }
 
 
