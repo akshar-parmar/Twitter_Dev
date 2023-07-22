@@ -13,7 +13,9 @@ class TweetService{
         const content = data.content;
         const regex = /#\w+/g;
         const hashtagsFetchedFromContent = content.match(regex);
-        const fetchedHashtag = hashtagsFetchedFromContent.map((tags)=>tags.substring(1));
+        const fetchedHashtag = hashtagsFetchedFromContent
+            .map((tags)=> tags.substring(1).toLowerCase());
+
         const hashtagTitleArray = [...new Set(fetchedHashtag)];  //to avoid duplicate #hashtag if present
         console.log(hashtagTitleArray);
         //let's create the tweet 

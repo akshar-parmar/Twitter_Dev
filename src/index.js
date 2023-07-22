@@ -12,10 +12,10 @@ app.listen(PORT,async()=>{
     await connect();
 
 
-    // const tweetservice = new TweetService();
-    // const response = tweetservice.create({
-    //     content : '#pakistan ki #mkb',
-    // });
+    const tweetservice = new TweetService();
+    const response = tweetservice.create({
+        content : '#CAPITAL #CAPITAL is working',
+    });
 
     console.log("MongoDB connected");
 
