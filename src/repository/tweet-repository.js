@@ -1,11 +1,13 @@
-const tweet = require('../models/tweet');
+const Tweet = require('../models/tweet');
 
 class TweetRepository {
     //lets build CRUD
     
    async create(data){
     try {
-        const tweetSample = await tweet.create(data);
+        const tweetSample = await Tweet.create({
+            content : data.content
+        });
         return tweetSample;
     } catch (error) {
         console.log("Something went wrong in tweetRepository");
@@ -15,36 +17,21 @@ class TweetRepository {
 
    async get(tweetId){
     try {
-        const tweetSample = await tweet.findById(tweetId);
+        const tweetSample = await Tweet.findById(tweetId).populate('hashtags');
         return tweetSample;
     } catch (error) {
         console.log("Something went wrong in tweetRepository");
     }
 
-   };
-
-   async getTweetWithComments(tweetId){
-    try {
-        //using lean() the query return us a plain javascript object instead of mongoose object.
-        const tweetSample = await tweet.findById(tweetId).populate('comments').lean();
-        return tweetSample;
-    } catch (error) {
-        console.log("Something went wrong in tweetRepository");
-    }
    }
 
-    async update(tweetId,data){
-        try {
-            const tweetSample = await tweet.findByIdAndUpdate(tweetId,data,{new : true});
-            return tweetSample;
-        } catch (error) {
-            console.log("Something went wrong in tweetRepository");
-        }
-    };
+
+
+
 
     async destroy(tweetId){
         try {
-            const tweetSample = await tweet.findByIdAndDelete(tweetId);
+            const tweetSample = await Tweet.findByIdAndDelete(tweetId);
             return tweetSample;
         } catch (error) {
             console.log("Something went wrong in tweetRepository");
@@ -54,20 +41,28 @@ class TweetRepository {
 
     async getAll(offset,limit){
         try {
-            const tweetSample = await tweet.find().skip(offset).limit(limit);
+            const tweetSample = await Tweet.find().skip(offset).limit(limit);
             return tweetSample;
         } catch (error) {
             console.log("Something went wrong in tweetRepository");
         }
     }
 
-    async getCommentWithUserEmail(){
+    async addHashtagIds(tweetId,allHashtagIds){
         try {
-            
+            console.log("Adding hastagIds to tweet");
+            const response = await Tweet.findByIdAndUpdate(
+                tweetId,
+                { $addToSet: { hashtags: { $each: allHashtagIds } } },
+                { new: true }
+              );
+              return response;
         } catch (error) {
             
         }
     }
+
+
 
 }
 module.exports = TweetRepository;

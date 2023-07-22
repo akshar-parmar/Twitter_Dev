@@ -6,10 +6,11 @@ const mongoose = require('mongoose');
 
 const hastagSchema = new mongoose.Schema({
 
-    //hashtag will have title like #AI, #technologu
+    //hashtag will have title like #AI, #technology
     title : {
         type : String,
-        required : true
+        required : true,
+        index : true
     },
 
     tweets : [
