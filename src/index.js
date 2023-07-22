@@ -1,25 +1,21 @@
-const express = require('express');
-const app  = express();
-const connect = require('./config/database');
+import express from 'express';
+
+import connect from './config/database.js'
 const PORT = 3000;
-const TweetService = require('./service/tweet-service');
-const Hashtag = require('./models/hashtags');
-const mongoose = require('mongoose');
-const Tweet = require('./models/tweet');
-const Comment = require('./models/comment');
-const {TweetRepository,HashtagRepository} = require('./repository/index');
+import TweetService from './service/tweet-service.js'
 
 
 
+const app  = express();
 app.listen(PORT,async()=>{
     console.log(`Twitter server started at ${PORT}`);
     await connect();
 
 
-    const tweetservice = new TweetService();
-    const response = tweetservice.create({
-        content : '#uniform #acceleration #bjp #first aayegi',
-    });
+    // const tweetservice = new TweetService();
+    // const response = tweetservice.create({
+    //     content : '#pakistan ki #mkb',
+    // });
 
     console.log("MongoDB connected");
 

@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 //lets define schema 
 //SCHEMA means structured of document inside mongo db collection
@@ -16,6 +16,6 @@ const commentSchema = new mongoose.Schema({
 });
 
 const Comment = mongoose.model('Comment',commentSchema);
-module.exports = Comment;
+export default Comment;
 
 

@@ -1,6 +1,5 @@
-const mongoose = require('mongoose');
-const Comment = require('./comment');
-const Hashtag = require('./hashtags')
+import mongoose from 'mongoose';
+
 //lets define schema 
 //SCHEMA means structured of document inside mongo db collection
 const tweetSchema = new mongoose.Schema({
@@ -24,6 +23,6 @@ const tweetSchema = new mongoose.Schema({
 
 
 const Tweet = mongoose.model('Tweet',tweetSchema);
-module.exports = Tweet;
+export default Tweet;
 
 
