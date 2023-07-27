@@ -16,7 +16,7 @@ class TweetService{
         const fetchedHashtag = hashtagsFetchedFromContent
             .map((tags)=> tags.substring(1).toLowerCase());
 
-        const hashtagTitleArray = [...new Set(fetchedHashtag)];  //to avoid duplicate #hashtag if present
+        const hashtagTitleArray = [...new Set(fetchedHashtag)]; //to avoid duplicate #hashtag if present
         //console.log(hashtagTitleArray);
         //let's create the tweet 
         const tweet = await this.tweetrepository.create(data);

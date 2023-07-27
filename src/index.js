@@ -5,6 +5,9 @@
     import TweetService from './service/tweet-service.js'
     import apiRoutes from './routes/index.js';
     import bodyParser from 'body-parser';
+    import UserRepository from './repository/user-repository.js';
+    import User from './models/users.js';
+    import LikeService from './service/like-service.js';
 
 
     const app  = express();
@@ -17,10 +20,18 @@
         await connect();
 
 
-        // const tweetservice = new TweetService();
-        // const response = tweetservice.create({
-        //     content : '#GREAT project',
+        // const userRepo = new UserRepository(User);
+        // const response = await userRepo.create({
+        //     email : "admin@gmail.com",
+        //     password : "admin",
+        //     name : "AdminUser"
         // });
+        // console.log(response);
+
+        const repo = new LikeService();
+        const response = await repo.toggleLike('Tweet','64c2befdd91e5eb54a383a1f','64c288927b1ca97c1f817be6');
+        console.log(response);
+
 
         console.log("MongoDB connected");
 

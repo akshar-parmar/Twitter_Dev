@@ -15,6 +15,13 @@ const tweetSchema = new mongoose.Schema({
             ref : 'Hashtag'
         }
         //like tweet ->[hashtagId1,hashtagId2,hashtagId3 .....]
+    ],
+
+    likes : [
+        {
+            type : mongoose.Schema.Types.ObjectId,
+            ref : 'Like'
+        }
     ]
 
 }, { 

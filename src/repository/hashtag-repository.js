@@ -10,7 +10,7 @@ class HashtagRepository {
         });
         return hashtagSample;
     } catch (error) {
-        console.log("Something went wrong in HashtagRepository");
+        console.log("Something went wrong in HashtagRepository 1");
     }
 
    };
@@ -20,7 +20,7 @@ class HashtagRepository {
         const hashtagSample = await Hashtag.findById(hashtagId).populate('tweets');
         return hashtagSample;
     } catch (error) {
-        console.log("Something went wrong in HashtagRepository");
+        console.log("Something went wrong in HashtagRepository 2");
     }
 
    }
@@ -31,7 +31,7 @@ class HashtagRepository {
             const hashtagSample = await Hashtag.findByIdAndDelete(hashtagId);
             return hashtagSample;
         } catch (error) {
-            console.log("Something went wrong in HashtagRepository");
+            console.log("Something went wrong in HashtagRepository 3");
         }
 
     };
@@ -43,7 +43,7 @@ class HashtagRepository {
             });
             return hashtags;
         } catch (error) {
-            console.log("Something went wrong in HashtagRepository");
+            console.log("Something went wrong in HashtagRepository 4");
         }
     }
 
@@ -53,7 +53,7 @@ class HashtagRepository {
             const response = await Hashtag.insertMany(tags);
             return response;
         } catch (error) {
-            console.log("Something went wrong in HashtagRepository");
+            console.log("Something went wrong in HashtagRepository 5");
         }
 
     }
