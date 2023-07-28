@@ -9,17 +9,24 @@ class TweetService{
 
     async create(data){
 
+        //let's create the tweet 
+        const tweet = await this.tweetrepository.create(data);
+
         //we need to fetch all the hashtags from content of the tweet
         const content = data.content;
         const regex = /#\w+/g;
         const hashtagsFetchedFromContent = content.match(regex);
-        const fetchedHashtag = hashtagsFetchedFromContent
-            .map((tags)=> tags.substring(1).toLowerCase());
+        // console.log(hashtagsFetchedFromContent);
+
+        //map doesnot work with null (hashtagsFetchedFromContent is null then issue hoga) so i need to use ternary operator
+        //Array.isArray(arr)  ->if arr is array then it will return true
+        //Array.isArray(null) ->false 
+        const fetchedHashtag = Array.isArray(hashtagsFetchedFromContent) ?
+        hashtagsFetchedFromContent.map((tags)=> tags.substring(1).toLowerCase()) : [];
 
         const hashtagTitleArray = [...new Set(fetchedHashtag)]; //to avoid duplicate #hashtag if present
         //console.log(hashtagTitleArray);
-        //let's create the tweet 
-        const tweet = await this.tweetrepository.create(data);
+
         //console.log("tweet created in collection Tweet",tweet);
         const tweetId = tweet.id;
 

@@ -9,17 +9,18 @@ class LikeService{
     }
 
     //now write the logic for like
-    async toggleLike(modelType , modelId, userId){
+    async toggleLike(modelType, modelId, userId){   // /api/v1/likes/toggle/?modelId & modelType
+        
         if(modelType=='Tweet'){
             var TweetObject = await this.tweetrepository.get(modelId);
-            console.log("OBJECT ....",TweetObject);
+            // console.log("OBJECT ....",TweetObject);
 
         }
         else if(modelType =='Comment'){
             //todo
         }
         else{
-            throw new Error('unknown model type')
+            throw new Error('unknown model type');
         }
 
         //let see if user has liked the tweet or not
@@ -28,7 +29,7 @@ class LikeService{
             likeable : modelId,
             user : userId
         });
-        console.log("EXISTSS---",exists);
+        // console.log("EXISTSS---",exists);
 
         if(exists!= null){
             //if like exist by same user on same tweet then we need to remove it
@@ -38,7 +39,7 @@ class LikeService{
 
             //now let's delete it from like collection also
             const deleteLikeFromCollection = await this.likerepository.destroy(exists.id);
-            console.log("deleteLikeFromCollection",deleteLikeFromCollection);
+            // console.log("deleteLikeFromCollection",deleteLikeFromCollection);
         }
         else{
             //else like doesnt exist then like the tweet 
@@ -48,7 +49,7 @@ class LikeService{
                 user : userId
 
             });
-            console.log("Adding LIKE ",addLike);
+            // console.log("Adding LIKE ",addLike);
 
             TweetObject.likes.push(addLike.id);
             await TweetObject.save();
