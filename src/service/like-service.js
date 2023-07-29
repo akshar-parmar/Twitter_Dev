@@ -1,10 +1,13 @@
-import {LikeRepository,TweetRepository} from '../repository/index.js';
+import {LikeRepository,TweetRepository,CommentRepository} from '../repository/index.js';
 import Like from '../models/likes.js';
 import Tweet from '../models/tweet.js';
+import Comment from '../models/comment.js';
 class LikeService{
     constructor(){
         this.likerepository = new LikeRepository(Like);
         this.tweetrepository = new TweetRepository(Tweet);
+        this.commentRepository = new CommentRepository(Comment);
+
 
     }
 
@@ -12,12 +15,12 @@ class LikeService{
     async toggleLike(modelType, modelId, userId){   // /api/v1/likes/toggle/?modelId & modelType
         
         if(modelType=='Tweet'){
-            var TweetObject = await this.tweetrepository.get(modelId);
+            var likeable = await this.tweetrepository.get(modelId);
             // console.log("OBJECT ....",TweetObject);
 
         }
         else if(modelType =='Comment'){
-            //todo
+            var likeable = await this.commentRepository.get(modelId);
         }
         else{
             throw new Error('unknown model type');
@@ -34,8 +37,8 @@ class LikeService{
         if(exists!= null){
             //if like exist by same user on same tweet then we need to remove it
             //we are now deleting the like from tweet
-            TweetObject.likes.pull(exists.id);
-            await TweetObject.save();
+            likeable.likes.pull(exists.id);
+            await likeable.save();
 
             //now let's delete it from like collection also
             const deleteLikeFromCollection = await this.likerepository.destroy(exists.id);
@@ -51,8 +54,8 @@ class LikeService{
             });
             // console.log("Adding LIKE ",addLike);
 
-            TweetObject.likes.push(addLike.id);
-            await TweetObject.save();
+            likeable.likes.push(addLike.id);
+            await likeable.save();
 
             //now we need to add the likeId in tweet as well
 

@@ -21,6 +21,7 @@ class TweetRepository {
         const tweetSample = await Tweet.findById(tweetId).populate('likes');
         return tweetSample;
     } catch (error) {
+        console.log(error);
         console.log("Something went wrong in tweetRepository");
     }
 
