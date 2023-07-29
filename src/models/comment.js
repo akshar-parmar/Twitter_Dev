@@ -3,13 +3,31 @@ import mongoose from 'mongoose';
 //lets define schema 
 //SCHEMA means structured of document inside mongo db collection
 const commentSchema = new mongoose.Schema({
-    userContent : {
+    content : {
         type : String,
         required : true
     },
-    userEmail : {
-        type : String
-    }
+    user : {
+        type : mongoose.Schema.Types.ObjectId,
+        ref  : 'User',
+        required : true
+    },
+    onModel : {
+        type : String,
+        enum : ['Tweet','Comment'],
+        required : true
+    },
+    commentable : {
+        type : mongoose.Schema.Types.ObjectId,
+        refPath : 'onModel',
+        required : true
+    },
+    comments : [
+        {
+            type : mongoose.Schema.Types.ObjectId,
+            ref : 'Comment'
+        }
+    ]
 
 }, {
     timestamps:true

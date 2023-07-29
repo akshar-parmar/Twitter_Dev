@@ -1,4 +1,5 @@
 import Tweet from '../models/tweet.js'
+import Comment from '../models/comment.js'
 
 class TweetRepository {
     //lets build CRUD
@@ -58,7 +59,29 @@ class TweetRepository {
               );
               return response;
         } catch (error) {
-            
+            console.log("Something went wrong in tweetRepository");
+        }
+    }
+
+    async getTweetWithComments(tweetId){
+        try {
+            const response = await Tweet.findById(tweetId)
+      .populate({
+        path: 'comments',
+        model: Comment,
+        populate: {
+          path: 'comments',
+          model: Comment,
+            populate : {
+                path: 'comments',
+                model: Comment,
+            }
+        },
+      })
+      .exec();
+            return response;
+        } catch (error) {
+            console.log("Something went wrong in tweetRepository");
         }
     }
 

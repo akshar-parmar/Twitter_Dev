@@ -33,6 +33,10 @@
         // console.log(response);
         // const repo = new TweetService();
         // const response = await repo.create({content : 'this is new tweet without hashtag'});
+        // const repo = new TweetService();
+        // const response = await repo.getTweet('64c4bd45ab3b45858016e9d0');
+        // console.log(response);
+
 
 
         console.log("MongoDB connected");
