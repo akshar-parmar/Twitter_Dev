@@ -8,10 +8,7 @@ class CommentService {
     }
 
     async createComment(contentOfComment, userId, modelType, modelId){
-        console.log(contentOfComment);
-        console.log(userId);
-        console.log(modelType);
-        console.log(modelId);
+
         if(modelType == 'Tweet'){
             var commentable = await this.tweetRepository.get(modelId);
         }
@@ -22,7 +19,7 @@ class CommentService {
             throw new Error("unknown model type");
         }
 
-        console.log("Commentable object",commentable);
+        //console.log("Commentable object",commentable);
 
         const newComment = await this.commentRepository.create({
             content : contentOfComment,
@@ -31,11 +28,11 @@ class CommentService {
             commentable : modelId,
             comments : [],
         });
-        console.log("comment created",newComment);
+        //console.log("comment created",newComment);
         commentable.comments.push(newComment.id);
         await commentable.save();
 
-        console.log("Commentable object after update",commentable);
+        //console.log("Commentable object after update",commentable);
 
         return newComment;
 

@@ -1,4 +1,6 @@
 import mongoose from 'mongoose';
+import bcrypt from 'bcrypt';
+import {SALT} from '../config/serverCongif.js';
 
 const userSchema = new mongoose.Schema({
     email :{
@@ -15,6 +17,11 @@ const userSchema = new mongoose.Schema({
     }
 
 },{timestamps:true});
+
+userSchema.pre('save' , function(next){
+    this.password = bcrypt.hashSync(this.password,SALT);
+    next();
+});
 
 //lets create the model
 const User = await mongoose.model('User',userSchema);

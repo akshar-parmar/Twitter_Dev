@@ -1,11 +1,11 @@
     import express from 'express';
-
+    import {PORT} from './config/serverCongif.js';
     import connect from './config/database.js'
-    const PORT = 3000;
+
     import TweetService from './service/tweet-service.js'
     import apiRoutes from './routes/index.js';
     import bodyParser from 'body-parser';
-    import UserRepository from './repository/user-repository.js';
+    import {UserRepository} from './repository/index.js';
     import User from './models/users.js';
     import LikeService from './service/like-service.js';
 
@@ -22,9 +22,9 @@
 
         // const userRepo = new UserRepository(User);
         // const response = await userRepo.create({
-        //     email : "akshar@gmail.com",
-        //     password : "1234",
-        //     name : "hinduBoy"
+        //     email : "keyur@gmail.com",
+        //     password : "shreypatel",
+        //     name : "shreySP"
         // });
         // console.log(response);
 
