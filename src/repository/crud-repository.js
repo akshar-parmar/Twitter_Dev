@@ -6,14 +6,9 @@ class CrudRepository {
     async create(data){
         try {
             const response = await this.model.create(data);
+            
             return response;
         } catch (error) {
-            if(error.name == 'MongoServerError'){
-                
-                throw {
-                    message : "same emailid is existing, duplication is not allowed"
-                }
-            }
             console.log("Something went wrong in crud repo");
         }
         

@@ -3,9 +3,10 @@ const commentService = new CommentService();
 
 export const createComment = async(req,res)=>{
     try {
+        console.log("what is the value",req.user.id);
         const response = await commentService.createComment(
             req.body.content,
-            req.body.userId,
+            req.user.id,
             req.query.modelType,
             req.query.modelId
             );
