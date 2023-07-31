@@ -5,21 +5,27 @@ class CrudRepository {
 
     async create(data){
         try {
-           
             const response = await this.model.create(data);
             return response;
         } catch (error) {
-            console.log("Something went wrong in crud repo")
+            if(error.name == 'MongoServerError'){
+                
+                throw {
+                    message : "same emailid is existing, duplication is not allowed"
+                }
+            }
+            console.log("Something went wrong in crud repo");
         }
         
     }
+
 
     async destroy(id){
         try {
             const response = await this.model.findByIdAndDelete(id);
             return response;
         } catch (error) {
-            console.log("Something went wrong in crud repo")
+            console.log("Something went wrong in crud repo");
         }
         
     }

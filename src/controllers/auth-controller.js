@@ -22,7 +22,27 @@ export const create = async(req,res)=>{
             message:"something went wrong while signup",
             data:{},
             success:false,
-            err:error
+            err:error.error.message
         });
+    }
+}
+
+export const login = async(req,res)=>{
+    try {
+        const response = await userService.signIn({
+            email : req.body.email,
+            password : req.body.password
+        });
+        return res.status(200).json({
+            data : response,
+            message : "Successfully logged in ",
+            success : true
+        })
+    } catch (error) {
+        return res.status(401).json({
+            err : error,
+            success : false,
+            data : {}
+        })
     }
 }
