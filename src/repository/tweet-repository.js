@@ -7,7 +7,9 @@ class TweetRepository {
    async create(data){
     try {
         const tweetSample = await Tweet.create({
-            content : data.content
+            content : data.content,
+            image : data.image,
+            user : data.userId
         });
         return tweetSample;
     } catch (error) {

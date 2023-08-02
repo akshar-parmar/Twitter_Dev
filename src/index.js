@@ -8,6 +8,7 @@
     import passport from 'passport';
     import {passportAuth} from './config/jwt-middleware.js';
 
+    
 
     const app  = express();
     app.use(bodyParser.json());
@@ -18,7 +19,7 @@
     app.listen(PORT,async()=>{
         console.log(`Twitter server started at ${PORT}`);
         await connect();
-
+        
         console.log("MongoDB connected");
 
     });
